@@ -4,36 +4,23 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "inputs": ["src/**", "package.json", "tsconfig.json", "vite.config.*", "wrangler.toml"],
-      "outputs": ["dist/**", ".next/**", ".output/**", ".turbo/**"]
+      "inputs": ["$TURBO_DEFAULT$"],
+      "outputs": ["dist/**"]
     },
     "dev": {
       "cache": false,
       "persistent": true
     },
-    "lint": {
-      "inputs": ["src/**", "**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"]
-    },
-    "format": {
-      "inputs": ["src/**", "**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"]
-    },
+    "lint": {},
+    "format": {},
     "test": {
-      "dependsOn": ["build"],
-      "inputs": ["src/**/*.ts", "src/**/*.tsx", "tests/**", "**/*.test.*", "**/*.spec.*"]
+      "dependsOn": ["build"]
     },
     "clean": {
       "cache": false
     },
     "typecheck": {
-      "dependsOn": ["^build"],
-      "inputs": ["src/**", "**/*.ts", "**/*.tsx", "tsconfig.json"]
-    },
-    "deploy": {
-      "dependsOn": ["build"],
-      "cache": false
+      "dependsOn": ["^build"]
     }
-  },
-  "globalDependencies": [
-    "turbo.json"
-  ]
+  }
 }

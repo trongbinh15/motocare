@@ -3,13 +3,11 @@
   "compilerOptions": {
     "baseUrl": ".",
     "outDir": "dist",
+    "noEmit": false,
     "paths": {
       "@/*": ["src/*"],
       "@motocare/shared": ["../../packages/shared/src"]
     }
   },
-  "include": [
-    "src/**/*",
-    "drizzle.config.ts"
-  ]
+  "include": ["src/**/*", "drizzle.config.ts"]
 }

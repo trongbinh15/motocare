@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "ES2022",
-    "lib": ["ES2022"],
+    "target": "ES2023",
+    "lib": ["ES2023"],
     "module": "ESNext",
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": false,
@@ -18,9 +18,5 @@
     "forceConsistentCasingInFileNames": true,
     "verbatimModuleSyntax": true
   },
-  "exclude": [
-    "node_modules",
-    "dist",
-    ".turbo"
-  ]
+  "exclude": ["node_modules", "dist", ".turbo"]
 }

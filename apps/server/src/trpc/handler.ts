@@ -6,7 +6,7 @@ import { createContext } from './context';
 export function createTRPCHandler() {
   const trpcApp = new Hono();
 
-  trpcApp.all('/', async (c) => {
+  trpcApp.all('/*', async (c) => {
     return fetchRequestHandler({
       endpoint: '/trpc',
       req: c.req.raw,

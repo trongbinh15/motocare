@@ -5,10 +5,6 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
-    "dev:mini-app": "turbo run dev --filter=@motocare/mini-app",
-    "dev:server": "turbo run dev --filter=@motocare/server",
-    "dev:worker": "turbo run dev --filter=@motocare/worker",
-    "dev:all": "turbo run dev",
     "lint": "turbo run lint",
     "format": "turbo run format",
     "test": "turbo run test",
@@ -16,8 +12,8 @@
     "typecheck": "turbo run typecheck"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.8.0",
-    "turbo": "^2.0.0",
-    "typescript": "^5.3.0"
+    "@biomejs/biome": "^1.9.0",
+    "turbo": "^2.8.13",
+    "typescript": "^5.9.3"
   }
 }
