@@ -1,0 +1,15 @@
+{
+  "appId": "placeholder-app-id",
+  "version": "1.0.0",
+  "name": "MotoCare",
+  "description": "Ứng dụng theo dõi bảo dưỡng xe máy/ô tô",
+  "logo": "",
+  "bundleId": "com.motocare.app",
+  "permissions": [
+    "location",
+    "camera"
+  ],
+  "platforms": [
+    "zalo"
+  ]
+}

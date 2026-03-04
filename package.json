@@ -1,0 +1,26 @@
+{
+  "name": "motocare",
+  "private": true,
+  "packageManager": "bun@1.1.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "echo 'Use individual package dev commands:' && echo '  bun run dev:mini-app  - Start Zalo Mini App' && echo '  bun run dev:server    - Start backend API' && echo '  bun run dev:worker     - Start AI Worker' && echo '  bun run dev:all       - Start all services'",
+    "dev:mini-app": "turbo run dev --filter=@motocare/mini-app",
+    "dev:server": "turbo run dev --filter=@motocare/server",
+    "dev:worker": "turbo run dev --filter=@motocare/worker",
+    "dev:all": "concurrently \"bun run dev:mini-app\" \"bun run dev:server\" \"bun run dev:worker\"",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "clean": "turbo run clean",
+    "typecheck": "turbo run typecheck"
+  },
+  "devDependencies": {
+    "turbo": "^2.0.0",
+    "typescript": "^5.3.0",
+    "concurrently": "^8.2.2"
+  }
+}
