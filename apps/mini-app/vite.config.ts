@@ -1,13 +1,11 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
-import zmp from 'vite-plugin-zmp'
 
 export default defineConfig({
   plugins: [
     react(),
-    tailwindcss(),
-    zmp()
+    tailwindcss()
   ],
   server: {
     host: true,

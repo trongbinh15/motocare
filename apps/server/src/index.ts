@@ -13,7 +13,14 @@ app.get('/', (c) => c.text('MotoCare API Server'))
 const trpcHandler = createTRPCHandler()
 app.route('/trpc', trpcHandler)
 
-export default {
-  port: 3001,
-  fetch: app.fetch
+// For Bun development server
+if (typeof Bun !== 'undefined') {
+  Bun.serve({
+    port: 3001,
+    fetch: app.fetch,
+  })
+  console.log('🚀 MotoCare API Server running on http://localhost:3001')
 }
+
+// Export for production deployment
+export default app
