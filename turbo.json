@@ -12,7 +12,10 @@
       "persistent": true
     },
     "lint": {
-      "dependsOn": ["^build"]
+      "inputs": ["src/**", "**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"]
+    },
+    "format": {
+      "inputs": ["src/**", "**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"]
     },
     "test": {
       "dependsOn": ["build"],

@@ -21,14 +21,12 @@
   },
   "scripts": {
     "build": "tsc",
-    "lint": "eslint src --ext ts --report-unused-disable-directives --max-warnings 0",
+    "lint": "biome check src",
+    "format": "biome format src --write",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist .turbo"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^7.13.1",
-    "@typescript-eslint/parser": "^7.13.1",
-    "eslint": "^8.57.0",
     "typescript": "^5.5.3"
   },
   "dependencies": {

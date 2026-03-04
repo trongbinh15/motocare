@@ -180,9 +180,9 @@ cd apps/server && bun run db:studio
 ## Deployment Strategy
 
 ### Development
-- **Frontend**: Vite dev server on port 3000
-- **Backend**: Hono dev server on port 3001
-- **Worker**: Wrangler local dev server
+- **Frontend**: Vite dev server on port 8001
+- **Backend**: Hono dev server on port 8002
+- **Worker**: Wrangler local dev server on port 8003
 
 ### Production
 - **Frontend**: Zalo Mini App platform (`zmp deploy`)
