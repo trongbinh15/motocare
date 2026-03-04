@@ -1,37 +1,37 @@
 import { router, publicProcedure } from '../trpc/trpc'
 import { products } from '../db/schema'
 import { eq, and, desc, asc } from 'drizzle-orm'
-import { z } from 'zod'
+import { object, string, number, boolean, array, optional, union, literal } from 'valibot'
 
-const createProductSchema = z.object({
-  name: z.string().min(1),
-  description: z.string().optional(),
-  category: z.string().min(1),
-  price: z.number().min(0),
-  brand: z.string().optional(),
-  compatibility: z.array(z.string()).optional(), // Array of compatible vehicle makes/models
-  isAvailable: z.boolean().optional().default(true),
+const createProductSchema = object({
+  name: string(),
+  description: optional(string()),
+  category: string(),
+  price: number(),
+  brand: optional(string()),
+  compatibility: optional(array(string())),
+  isAvailable: optional(boolean(), true),
 })
 
-const updateProductSchema = z.object({
-  id: z.number().int(),
-  name: z.string().min(1).optional(),
-  description: z.string().optional(),
-  category: z.string().min(1).optional(),
-  price: z.number().min(0).optional(),
-  brand: z.string().optional(),
-  compatibility: z.array(z.string()).optional(),
-  isAvailable: z.boolean().optional(),
+const updateProductSchema = object({
+  id: number(),
+  name: optional(string()),
+  description: optional(string()),
+  category: optional(string()),
+  price: optional(number()),
+  brand: optional(string()),
+  compatibility: optional(array(string())),
+  isAvailable: optional(boolean()),
 })
 
 export const productsRouter = router({
   // Get all available products
   getAll: publicProcedure
-    .input(z.object({
-      limit: z.number().int().min(1).max(100).optional().default(50),
-      offset: z.number().int().min(0).optional().default(0),
-      sortBy: z.enum(['name', 'price', 'createdAt']).optional().default('createdAt'),
-      sortOrder: z.enum(['asc', 'desc']).optional().default('desc')
+    .input(object({
+      limit: optional(number(), 50),
+      offset: optional(number(), 0),
+      sortBy: optional(union([literal('name'), literal('price'), literal('createdAt')]), 'createdAt'),
+      sortOrder: optional(union([literal('asc'), literal('desc')]), 'desc')
     }))
     .query(async ({ ctx, input }) => {
       let orderBy
@@ -60,10 +60,10 @@ export const productsRouter = router({
 
   // Get products by category
   getByCategory: publicProcedure
-    .input(z.object({
-      category: z.string(),
-      limit: z.number().int().min(1).max(100).optional().default(50),
-      offset: z.number().int().min(0).optional().default(0)
+    .input(object({
+      category: string(),
+      limit: optional(number(), 50),
+      offset: optional(number(), 0)
     }))
     .query(async ({ ctx, input }) => {
       return await ctx.db
@@ -80,7 +80,7 @@ export const productsRouter = router({
 
   // Get product by ID
   getById: publicProcedure
-    .input(z.object({ id: z.number().int() }))
+    .input(object({ id: number() }))
     .query(async ({ ctx, input }) => {
       const result = await ctx.db
         .select()
@@ -93,10 +93,10 @@ export const productsRouter = router({
 
   // Search products
   search: publicProcedure
-    .input(z.object({
-      query: z.string().min(1),
-      category: z.string().optional(),
-      limit: z.number().int().min(1).max(100).optional().default(20)
+    .input(object({
+      query: string(),
+      category: optional(string()),
+      limit: optional(number(), 20)
     }))
     .query(async ({ ctx, input }) => {
       // Note: This is a simplified search - in production you might want full-text search
@@ -166,7 +166,7 @@ export const productsRouter = router({
 
   // Delete product (soft delete by setting isAvailable to false)
   delete: publicProcedure
-    .input(z.object({ id: z.number().int() }))
+    .input(object({ id: number() }))
     .mutation(async ({ ctx, input }) => {
       const result = await ctx.db
         .update(products)

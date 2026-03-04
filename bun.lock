@@ -51,7 +51,6 @@
         "drizzle-orm": "^0.32.0",
         "hono": "^4.5.0",
         "valibot": "^1.0.0-beta.1",
-        "zod": "^4.3.6",
       },
       "devDependencies": {
         "@types/better-sqlite3": "^7.6.11",
@@ -1048,7 +1047,7 @@
 
     "zmp-ui": ["zmp-ui@1.11.12", "", { "dependencies": { "@babel/runtime": "^7.18.9", "@react-spring/web": "9.5.5", "@use-gesture/react": "^10.2.22", "clsx": "^1.2.1", "react-is": "^18.2.0", "react-router-dom": "^6.3.0", "react-transition-group": "^4.4.5", "resize-observer-polyfill": "^1.5.1" } }, "sha512-rlMCbL3VZAcNNH3KyjV0sNF7X8i3CMAoFAAfpW4URSpwnBJECK9+0o1BX63OGHmy5X5nsg1MZUz/hjVH4/1y4g=="],
 
-    "zod": ["zod@4.3.6", "", {}, "sha512-rftlrkhHZOcjDwkGlnUtZZkvaPHCsDATp4pGpuOOMDaTdDDXF91wuVDJoWoPsKX/3YPQ5fHuF3STjcYyKr+Qhg=="],
+    "zod": ["zod@3.22.3", "", {}, "sha512-EjIevzuJRiRPbVH4mGc8nApb/lVLKVpmUhAaR5R5doKGfAnGJ6Gr3CViAVjP+4FWSxCsybeWQdcgCtbX+7oZug=="],
 
     "@babel/core/semver": ["semver@6.3.1", "", { "bin": { "semver": "bin/semver.js" } }, "sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA=="],
 
@@ -1097,8 +1096,6 @@
     "make-dir/semver": ["semver@5.7.2", "", { "bin": { "semver": "bin/semver" } }, "sha512-cBznnQ9KjJqU67B52RMC65CMarK2600WFnbkcaiwWq3xy/5haFJlshgnpjovMVJ+Hff49d8GEn0b87C5pDQ10g=="],
 
     "miniflare/acorn": ["acorn@8.14.0", "", { "bin": { "acorn": "bin/acorn" } }, "sha512-cl669nCJTZBsL97OF4kUQm5g5hC2uihk0NxY3WENAC0TYdILVkAyHymAntgxGkl7K+t0cXIrH5siy5S4XkFycA=="],
-
-    "miniflare/zod": ["zod@3.22.3", "", {}, "sha512-EjIevzuJRiRPbVH4mGc8nApb/lVLKVpmUhAaR5R5doKGfAnGJ6Gr3CViAVjP+4FWSxCsybeWQdcgCtbX+7oZug=="],
 
     "prop-types/react-is": ["react-is@16.13.1", "", {}, "sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ=="],
 

@@ -1,39 +1,39 @@
 import { router, publicProcedure } from '../trpc/trpc'
 import { serviceRecords } from '../db/schema'
 import { eq, desc, and, gte, lte } from 'drizzle-orm'
-import { z } from 'zod'
+import { object, number, string, date, optional } from 'valibot'
 
-const createServiceRecordSchema = z.object({
-  vehicleId: z.number().int(),
-  serviceType: z.string().min(1),
-  description: z.string().min(1),
-  mileageAtService: z.number().int().min(0),
-  cost: z.number().min(0).optional(),
-  date: z.date().optional().default(() => new Date()),
-  nextServiceMileage: z.number().int().min(0).optional(),
-  nextServiceDate: z.date().optional(),
-  notes: z.string().optional(),
+const createServiceRecordSchema = object({
+  vehicleId: number(),
+  serviceType: string(),
+  description: string(),
+  mileageAtService: number(),
+  cost: optional(number()),
+  date: optional(date(), () => new Date()),
+  nextServiceMileage: optional(number()),
+  nextServiceDate: optional(date()),
+  notes: optional(string()),
 })
 
-const updateServiceRecordSchema = z.object({
-  id: z.number().int(),
-  serviceType: z.string().min(1).optional(),
-  description: z.string().min(1).optional(),
-  mileageAtService: z.number().int().min(0).optional(),
-  cost: z.number().min(0).optional(),
-  date: z.date().optional(),
-  nextServiceMileage: z.number().int().min(0).optional(),
-  nextServiceDate: z.date().optional(),
-  notes: z.string().optional(),
+const updateServiceRecordSchema = object({
+  id: number(),
+  serviceType: optional(string()),
+  description: optional(string()),
+  mileageAtService: optional(number()),
+  cost: optional(number()),
+  date: optional(date()),
+  nextServiceMileage: optional(number()),
+  nextServiceDate: optional(date()),
+  notes: optional(string()),
 })
 
 export const serviceRouter = router({
   // Get all service records for a vehicle
   getByVehicleId: publicProcedure
-    .input(z.object({
-      vehicleId: z.number().int(),
-      limit: z.number().int().min(1).max(100).optional().default(50),
-      offset: z.number().int().min(0).optional().default(0)
+    .input(object({
+      vehicleId: number(),
+      limit: optional(number(), 50),
+      offset: optional(number(), 0)
     }))
     .query(async ({ ctx, input }) => {
       return await ctx.db
@@ -47,10 +47,10 @@ export const serviceRouter = router({
 
   // Get service records by type
   getByType: publicProcedure
-    .input(z.object({
-      serviceType: z.string(),
-      limit: z.number().int().min(1).max(100).optional().default(50),
-      offset: z.number().int().min(0).optional().default(0)
+    .input(object({
+      serviceType: string(),
+      limit: optional(number(), 50),
+      offset: optional(number(), 0)
     }))
     .query(async ({ ctx, input }) => {
       return await ctx.db
@@ -64,9 +64,9 @@ export const serviceRouter = router({
 
   // Get upcoming services (based on next service dates/mileage)
   getUpcomingServices: publicProcedure
-    .input(z.object({
-      daysAhead: z.number().int().min(1).max(365).optional().default(30),
-      currentMileage: z.number().int().min(0).optional()
+    .input(object({
+      daysAhead: optional(number(), 30),
+      currentMileage: optional(number())
     }))
     .query(async ({ ctx, input }) => {
       const futureDate = new Date()
@@ -120,7 +120,7 @@ export const serviceRouter = router({
 
   // Delete service record
   delete: publicProcedure
-    .input(z.object({ id: z.number().int() }))
+    .input(object({ id: number() }))
     .mutation(async ({ ctx, input }) => {
       const result = await ctx.db
         .delete(serviceRecords)

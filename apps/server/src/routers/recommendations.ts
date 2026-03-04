@@ -1,35 +1,35 @@
 import { router, publicProcedure } from '../trpc/trpc'
 import { serviceRecommendations } from '../db/schema'
 import { eq, and, desc } from 'drizzle-orm'
-import { z } from 'zod'
+import { object, string, number, optional, boolean } from 'valibot'
 
-const createRecommendationSchema = z.object({
-  make: z.string().min(1),
-  model: z.string().optional(),
-  serviceType: z.string().min(1),
-  intervalMileage: z.number().int().min(0).optional(),
-  intervalMonths: z.number().int().min(0).optional(),
-  description: z.string().min(1),
-  isActive: z.boolean().optional().default(true),
+const createRecommendationSchema = object({
+  make: string(),
+  model: optional(string()),
+  serviceType: string(),
+  intervalMileage: optional(number()),
+  intervalMonths: optional(number()),
+  description: string(),
+  isActive: optional(boolean(), true),
 })
 
-const updateRecommendationSchema = z.object({
-  id: z.number().int(),
-  make: z.string().min(1).optional(),
-  model: z.string().optional(),
-  serviceType: z.string().min(1).optional(),
-  intervalMileage: z.number().int().min(0).optional(),
-  intervalMonths: z.number().int().min(0).optional(),
-  description: z.string().min(1).optional(),
-  isActive: z.boolean().optional(),
+const updateRecommendationSchema = object({
+  id: number(),
+  make: optional(string()),
+  model: optional(string()),
+  serviceType: optional(string()),
+  intervalMileage: optional(number()),
+  intervalMonths: optional(number()),
+  description: optional(string()),
+  isActive: optional(boolean()),
 })
 
 export const recommendationsRouter = router({
   // Get all active recommendations
   getAll: publicProcedure
-    .input(z.object({
-      limit: z.number().int().min(1).max(100).optional().default(50),
-      offset: z.number().int().min(0).optional().default(0)
+    .input(object({
+      limit: optional(number(), 50),
+      offset: optional(number(), 0)
     }))
     .query(async ({ ctx, input }) => {
       return await ctx.db
@@ -43,10 +43,10 @@ export const recommendationsRouter = router({
 
   // Get recommendations by vehicle make
   getByMake: publicProcedure
-    .input(z.object({
-      make: z.string(),
-      model: z.string().optional(),
-      limit: z.number().int().min(1).max(100).optional().default(50)
+    .input(object({
+      make: string(),
+      model: optional(string()),
+      limit: optional(number(), 50)
     }))
     .query(async ({ ctx, input }) => {
       let whereCondition = and(
@@ -71,9 +71,9 @@ export const recommendationsRouter = router({
 
   // Get recommendations by service type
   getByServiceType: publicProcedure
-    .input(z.object({
-      serviceType: z.string(),
-      limit: z.number().int().min(1).max(100).optional().default(50)
+    .input(object({
+      serviceType: string(),
+      limit: optional(number(), 50)
     }))
     .query(async ({ ctx, input }) => {
       return await ctx.db
@@ -89,9 +89,9 @@ export const recommendationsRouter = router({
 
   // Search recommendations
   search: publicProcedure
-    .input(z.object({
-      query: z.string().min(1),
-      limit: z.number().int().min(1).max(100).optional().default(20)
+    .input(object({
+      query: string(),
+      limit: optional(number(), 20)
     }))
     .query(async ({ ctx, input }) => {
       // Note: This is a simplified search - in production you might want full-text search
@@ -135,7 +135,7 @@ export const recommendationsRouter = router({
 
   // Delete recommendation (soft delete by setting isActive to false)
   delete: publicProcedure
-    .input(z.object({ id: z.number().int() }))
+    .input(object({ id: number() }))
     .mutation(async ({ ctx, input }) => {
       const result = await ctx.db
         .update(serviceRecommendations)

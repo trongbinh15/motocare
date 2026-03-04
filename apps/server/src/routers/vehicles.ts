@@ -1,24 +1,24 @@
 import { router, publicProcedure } from '../trpc/trpc'
 import { vehicles } from '../db/schema'
 import { eq, desc } from 'drizzle-orm'
-import { z } from 'zod' // We'll replace this with valibot later
+import { object, string, number, optional, pipe, minLength } from 'valibot'
 
-// Input validation schemas (temporary - will be moved to shared package)
-const createVehicleSchema = z.object({
-  licensePlate: z.string().min(1),
-  make: z.string().min(1),
-  model: z.string().min(1),
-  year: z.number().int().min(1900).max(new Date().getFullYear() + 1),
-  currentMileage: z.number().int().min(0).default(0),
+// Input validation schemas using Valibot
+const createVehicleSchema = object({
+  licensePlate: pipe(string(), minLength(1)),
+  make: pipe(string(), minLength(1)),
+  model: pipe(string(), minLength(1)),
+  year: number(),
+  currentMileage: optional(number(), 0),
 })
 
-const updateVehicleSchema = z.object({
-  id: z.number().int(),
-  licensePlate: z.string().min(1).optional(),
-  make: z.string().min(1).optional(),
-  model: z.string().min(1).optional(),
-  year: z.number().int().min(1900).max(new Date().getFullYear() + 1).optional(),
-  currentMileage: z.number().int().min(0).optional(),
+const updateVehicleSchema = object({
+  id: number(),
+  licensePlate: optional(pipe(string(), minLength(1))),
+  make: optional(pipe(string(), minLength(1))),
+  model: optional(pipe(string(), minLength(1))),
+  year: optional(number()),
+  currentMileage: optional(number()),
 })
 
 export const vehiclesRouter = router({
@@ -29,7 +29,7 @@ export const vehiclesRouter = router({
 
   // Get vehicle by ID
   getById: publicProcedure
-    .input(z.object({ id: z.number().int() }))
+    .input(object({ id: number() }))
     .query(async ({ ctx, input }) => {
       const result = await ctx.db
         .select()
@@ -42,7 +42,7 @@ export const vehiclesRouter = router({
 
   // Get vehicle by license plate
   getByLicensePlate: publicProcedure
-    .input(z.object({ licensePlate: z.string() }))
+    .input(object({ licensePlate: string() }))
     .query(async ({ ctx, input }) => {
       const result = await ctx.db
         .select()
@@ -88,7 +88,7 @@ export const vehiclesRouter = router({
 
   // Delete vehicle
   delete: publicProcedure
-    .input(z.object({ id: z.number().int() }))
+    .input(object({ id: number() }))
     .mutation(async ({ ctx, input }) => {
       const result = await ctx.db
         .delete(vehicles)

@@ -1,29 +1,29 @@
 import { router, publicProcedure } from '../trpc/trpc'
 import { odoLogs } from '../db/schema'
 import { eq, desc, and, gte, lte } from 'drizzle-orm'
-import { z } from 'zod'
+import { object, number, date, optional, string } from 'valibot'
 
-const createOdoLogSchema = z.object({
-  vehicleId: z.number().int(),
-  mileage: z.number().int().min(0),
-  date: z.date().optional().default(() => new Date()),
-  notes: z.string().optional(),
+const createOdoLogSchema = object({
+  vehicleId: number(),
+  mileage: number(),
+  date: optional(date(), () => new Date()),
+  notes: optional(string()),
 })
 
-const updateOdoLogSchema = z.object({
-  id: z.number().int(),
-  mileage: z.number().int().min(0).optional(),
-  date: z.date().optional(),
-  notes: z.string().optional(),
+const updateOdoLogSchema = object({
+  id: number(),
+  mileage: optional(number()),
+  date: optional(date()),
+  notes: optional(string()),
 })
 
 export const odoRouter = router({
   // Get all odo logs for a vehicle
   getByVehicleId: publicProcedure
-    .input(z.object({
-      vehicleId: z.number().int(),
-      limit: z.number().int().min(1).max(100).optional().default(50),
-      offset: z.number().int().min(0).optional().default(0)
+    .input(object({
+      vehicleId: number(),
+      limit: optional(number(), 50),
+      offset: optional(number(), 0)
     }))
     .query(async ({ ctx, input }) => {
       return await ctx.db
@@ -37,7 +37,7 @@ export const odoRouter = router({
 
   // Get latest odo log for a vehicle
   getLatestByVehicleId: publicProcedure
-    .input(z.object({ vehicleId: z.number().int() }))
+    .input(object({ vehicleId: number() }))
     .query(async ({ ctx, input }) => {
       const result = await ctx.db
         .select()
@@ -51,10 +51,10 @@ export const odoRouter = router({
 
   // Get odo logs within date range
   getByDateRange: publicProcedure
-    .input(z.object({
-      vehicleId: z.number().int(),
-      startDate: z.date(),
-      endDate: z.date(),
+    .input(object({
+      vehicleId: number(),
+      startDate: date(),
+      endDate: date(),
     }))
     .query(async ({ ctx, input }) => {
       return await ctx.db
@@ -97,7 +97,7 @@ export const odoRouter = router({
 
   // Delete odo log
   delete: publicProcedure
-    .input(z.object({ id: z.number().int() }))
+    .input(object({ id: number() }))
     .mutation(async ({ ctx, input }) => {
       const result = await ctx.db
         .delete(odoLogs)
