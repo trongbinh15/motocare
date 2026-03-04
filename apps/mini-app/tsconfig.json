@@ -4,14 +4,12 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
-      "@motocare/shared": ["../../packages/shared/src"]
+      "@motocare/shared": ["../../packages/shared/src"],
+      "@motocare/server": ["../server/src"]
     },
     "jsx": "react-jsx",
     "types": ["vite/client"],
     "lib": ["ES2022", "DOM", "DOM.Iterable"]
   },
-  "include": [
-    "src/**/*",
-    "vite.config.ts"
-  ]
+  "include": ["src/**/*", "vite.config.ts"]
 }

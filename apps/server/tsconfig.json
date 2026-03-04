@@ -4,6 +4,7 @@
     "baseUrl": ".",
     "outDir": "dist",
     "noEmit": false,
+    "declaration": true,
     "paths": {
       "@/*": ["src/*"],
       "@motocare/shared": ["../../packages/shared/src"]

@@ -1,10 +1,5 @@
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { BottomNavigation, Icon } from 'zmp-ui';
-import { OdoPage } from './pages/Odo';
-import { ProductsPage } from './pages/Products';
-import { RecommendationsPage } from './pages/Recommendations';
-import { ServicePage } from './pages/Service';
-import { VehiclesPage } from './pages/Vehicles';
 
 const tabs = [
   { key: 'vehicles', label: 'Vehicles', icon: 'zi-home', path: '/vehicles' },
@@ -14,20 +9,13 @@ const tabs = [
   { key: 'products', label: 'Products', icon: 'zi-more', path: '/products' },
 ];
 
-export function App() {
+export function Layout() {
   const navigate = useNavigate();
 
   return (
     <div className="flex flex-col h-screen">
       <main className="flex-1 overflow-auto">
-        <Routes>
-          <Route path="/vehicles" element={<VehiclesPage />} />
-          <Route path="/odo" element={<OdoPage />} />
-          <Route path="/service" element={<ServicePage />} />
-          <Route path="/recommendations" element={<RecommendationsPage />} />
-          <Route path="/products" element={<ProductsPage />} />
-          <Route path="/" element={<VehiclesPage />} />
-        </Routes>
+        <Outlet />
       </main>
       <BottomNavigation
         fixed

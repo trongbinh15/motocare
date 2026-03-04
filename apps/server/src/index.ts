@@ -25,3 +25,6 @@ if (process.env.NODE_ENV !== 'production') {
 
 // Export for production deployment
 export default app;
+
+// Export types
+export type { AppRouter } from './routers';

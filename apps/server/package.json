@@ -3,6 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/src/index.js",
+      "types": "./dist/src/index.d.ts"
+    },
+    "./router": {
+      "import": "./dist/src/routers/index.js",
+      "types": "./dist/src/routers/index.d.ts"
+    }
+  },
   "scripts": {
     "build": "tsc",
     "dev": "tsx watch src/index.ts",
@@ -22,6 +34,7 @@
     "better-sqlite3": "^12.6.2",
     "drizzle-orm": "^0.45.1",
     "hono": "^4.12.5",
+    "superjson": "^2.2.1",
     "valibot": "^1.2.0"
   },
   "devDependencies": {
