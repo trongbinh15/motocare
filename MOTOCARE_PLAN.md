@@ -56,16 +56,16 @@ motocare/
 - Server startup and database migrations verified
 - tRPC routing fixed (`/*` wildcard for proper sub-path matching)
 
-### Phase 3: Shared Package
+### Phase 3: Shared Package - COMPLETE
 - Valibot validators for all entities
-- Shared TypeScript types
-- tRPC procedure definitions
+- Shared TypeScript types with InferOutput
+- Package exports for validators and types
 
-### Phase 4: Frontend Shell
+### Phase 4: Frontend Shell - COMPLETE
 - Zalo Mini App layout with BottomNavigation
-- tRPC client + React Query integration
-- Router setup with React Router
-- Component structure with ZMP UI + Tailwind
+- tRPC client + React Query integration with superjson
+- Router setup with React Router v7
+- Component structure with ZMP UI + Tailwind CSS
 
 ### Phase 5: Features
 - Vehicle CRUD + ODO logging
@@ -117,11 +117,13 @@ motocare/
 ### Completed
 - **Phase 1**: Full monorepo scaffolding with pnpm workspaces + Turborepo
 - **Phase 2**: Complete backend core with Valibot validation
+- **Phase 3**: Shared package with validators and types
+- **Phase 4**: Frontend shell with tRPC, React Router, and ZMP UI
 - **Dependency upgrade**: All dependencies upgraded to latest stable versions
 - GitHub repository created and configured
 
 ### Next Up
-- Phase 3 (Shared Package with Valibot validators)
+- Phase 5 (Vehicle CRUD + ODO logging, Service records, Product catalog)
 
 ### Known Issues
 - `app-config.json` has placeholder appId - needs real Zalo Mini App ID
