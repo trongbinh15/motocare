@@ -1,13 +1,5 @@
 import { initTRPC } from '@trpc/server'
-import type { HonoContext } from './context'
-
-export function createContext() {
-  return {
-    db: {} as any // Will be initialized later
-  }
-}
-
-export type Context = ReturnType<typeof createContext>
+import { type Context } from './context'
 
 const t = initTRPC.context<Context>().create()
 
